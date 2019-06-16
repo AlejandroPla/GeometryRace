@@ -14,9 +14,6 @@ Player = function Player(game, position) {
 	this.body.setSize(290, 290, 0, 280);
 }
 
-Player.prototype = Object.create(Character.prototype);
-Player.prototype.constructor = Character;
-
 Player.prototype.update = function() {
 	this.move();
 	
@@ -28,26 +25,23 @@ Player.prototype.update = function() {
 }
 
 Player.prototype.move = function () {
-    if (this.keyboard.isDown(phaser.keyboard.S) || this.keyboard.isDown(phaser.keyboard.DOWN))
+    if (this.keyboard.isDown(Phaser.Keyboard.S) || this.keyboard.isDown(Phaser.Keyboard.DOWN))
     {
         this.body.velocity.y -= this.speed;
         //this.body.velocity.x = 0;        
     }
-    if (this.keyboard.isDown(phaser.keyboard.W) || this.keyboard.isDown(phaser.keyboard.UP))
+    if (this.keyboard.isDown(Phaser.Keyboard.W) || this.keyboard.isDown(Phaser.Keyboard.UP))
     {
         this.body.velocity.y += this.speed;
         
     }
-    if (this.keyboard.isDown(phaser.keyboard.A) || this.keyboard.isDown(phaser.keyboard.LEFT))
+    if (this.keyboard.isDown(Phaser.Keyboard.A) || this.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
         this.body.velocity.x -= this.speed;
     }
-    if (this.keyboard.isDown(phaser.keyboard.D) || this.keyboard.isDown(phaser.keyboard.RIGHT))
+    if (this.keyboard.isDown(Phaser.Keyboard.D) || this.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
         this.body.velocity.x += this.speed;
-    }
-    else {
-        //default
     }
 
 };

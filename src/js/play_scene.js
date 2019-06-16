@@ -10,20 +10,15 @@
     logo.anchor.setTo(0.5, 0.5);
 
     // Jugador
-    /*this.player = new Player(this.game, {x: 120, y: 120});
+    this.player = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'player');
+    this.player.anchor.setTo(0.5, 0.5);
     this.game.add.existing(this.player);
-
-    // Sonido
-    //this.music = this.game.add.audio('GameMusic');
-    /*this.music.volume = 1;
-    this.music.loop = true;
-    this.music.halt();
-    this.music.play();*/
-
-    // Para el juego
-    /*this.nivel = 0;
-    this.score = 0;
-    this.map = New Map(this.game);*/
+    this.game.physics.arcade.enable([this.player], Phaser.Physics.ARCADE);
+    this.player.body.collideWorldBounds = true;
+    this.player.body.immovable = true;   
+  },
+  update: function() {
+    //player.update();
   }
 };
 

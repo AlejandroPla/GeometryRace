@@ -1,6 +1,27 @@
 'use strict';
 
-var PlayScene = require('./play_scene.js');
+window.onload = function () {
+	var PlayScene = require('./play_scene.js');
+	var config = {
+		width: 800,
+		height: 680,
+		renderer: Phaser.AUTO,
+		backgroundColor: '#ffffff',
+		parent: 'game',
+		transparent: false,
+		antialias: false,
+		state: this,
+    scaleMode: Phaser.ScaleManager.EXACT_FIT
+	};
+  var game = new Phaser.Game(config);
+  
+  game.state.add('boot', BootScene);
+  game.state.add('preloader', PreloaderScene);
+  //game.state.add('controls', ControlsScene);
+  game.state.add('play', PlayScene);
+
+  game.state.start('play');
+};
 
 var BootScene = {
   preload: function () {
@@ -8,15 +29,15 @@ var BootScene = {
     this.game.load.image('preloader_bar', 'images/preloader_bar.png');
 
     // key events
-    this.game.input.keyboard.addKeyCapture(phaser.keyboard.SPACEBAR);
-    this.game.input.keyboard.addKeyCapture(phaser.keyboard.UP);
-    this.game.input.keyboard.addKeyCapture(phaser.keyboard.DOWN);
-    this.game.input.keyboard.addKeyCapture(phaser.keyboard.LEFT);
-    this.game.input.keyboard.addKeyCapture(phaser.keyboard.RIGHT);
+    this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.SPACEBAR);
+    this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.UP);
+    this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.DOWN);
+    this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.LEFT);
+    this.game.input.keyboard.addKeyCapture(Phaser.Keyboard.RIGHT);
   },
 
   create: function () {
-    this.game.state.start('preloader');
+    this.game.state.start('play');
   }
 };
 
@@ -28,7 +49,8 @@ var PreloaderScene = {
     this.load.setPreloadSprite(this.loadingBar);
 
     // TODO: load here the assets for the game
-    this.game.load.image('logo', 'images/phaser.png');    
+    this.game.load.image('logo', 'images/phaser.png');  
+    this.game.load.image('player', 'resources/characters/player.png');  
   },
 
   create: function () {
@@ -36,30 +58,6 @@ var PreloaderScene = {
     this.game.add.button(610, 610, 'controlsButton', this.controls, this, 2, 0, 1);
   },
   start: function() {
-		this.game.state.start('menu', true, false, 0);
+		this.game.state.start('play', true, false, 0);
   }
-};
-
-var MenuScene = {
-  preload: function(){
-    // Load assets here
-    this.game.load.spritesheet('playButton', 'resources/menus/playButton.png', 260, 80);
-		this.game.load.spritesheet('controlsButton', 'resources/menus/controlsButton.png', 181, 60);
-  },
-  start: function(){
-    this.game.state.start('menu');
-  }
-};
-
-
-window.onload = function () {
-  var game = new Phaser.Game(800, 600, Phaser.AUTO, 'game');
-
-  game.state.add('boot', BootScene);
-  game.state.add('preloader', PreloaderScene);
-  game.state.add('menu', MenuScene);
-  //game.state.add('controls', ControlsScene);
-  game.state.add('play', PlayScene);
-
-  game.state.start('boot');
 };
